@@ -37,4 +37,4 @@ If you have a change to propose for any of the above listed features, or bugs or
 We can make this application together to reduce the burden to scheduling and time tabling across school. And **YES!**, we can make it free.
 
 ## License
-The MIT License (MIT). Please see License File for more information.
+The MIT License (MIT). Please see [License File](https://github.com/therealSMAT/timetablegenerator/blob/master/LICENSE) for more information.
