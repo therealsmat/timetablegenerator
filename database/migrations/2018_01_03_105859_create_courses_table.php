@@ -19,10 +19,11 @@ class CreateCoursesTable extends Migration
             $table->string('title');
             $table->integer('units');
             $table->integer('lecturer')->unsigned()->nullable();
-            $table->integer('dept')->unsigned();
+            $table->integer('dept')->unsigned()->nullable();
             $table->integer('semester');
             $table->string('session');
             $table->integer('level');
+            $table->boolean('general')->default(FALSE);
             $table->timestamps();
         });
     }

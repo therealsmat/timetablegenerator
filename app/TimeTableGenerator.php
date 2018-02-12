@@ -62,12 +62,19 @@ class TimeTableGenerator {
     protected $chromosomes;
 
     /**
+     * Store locations for each break element
+     * @var array
+     */
+    protected $break = ['B', 'R', 'E', 'A', 'K'];
+
+    /**
      * TimeTableGenerator constructor.
      * @param array $gene
      */
     public function __construct(array $gene)
     {
         $this->gene = $gene;
+        $this->indexOfBreak = (new Setting())->getByKey('break_time');
         $this->initializeTimeTable();
         return $this;
     }
@@ -95,7 +102,7 @@ class TimeTableGenerator {
             $totalUnits += $gene['units'];
         }
 
-        return $totalUnits <= $totalSlots;
+        return $totalUnits <= ($totalSlots - 5);
     }
 
     /**
@@ -123,7 +130,9 @@ class TimeTableGenerator {
     {
         for ($y = 0; $y < $this->daysOfWeek; $y++) {
             for ($z = 0; $z < $this->sizeOfDay; $z++) {
-                $this->timeTable[$y][$z] = $this->emptyIndicator;
+                $indicator = $this->emptyIndicator;
+                if ($z == $this->indexOfBreak) $indicator = $this->break[$y];
+                $this->timeTable[$y][$z] = $indicator;
             }
         }
         return $this;
@@ -144,6 +153,7 @@ class TimeTableGenerator {
             for ($y = 0; $y < $this->daysOfWeek; $y++) {
                 for ($z = 0; $z < $this->sizeOfDay; $z++) {
                     if ($this->hasAssigned($seed)) continue;
+                    if ($this->isBreakTimeZone($seed)) continue;
                     $row = (int) ($seed / $this->sizeOfDay);
                     $col = $seed % $this->sizeOfDay;
                     $this->timeTable[$row][$col] = $this->chromosomes[$x];
@@ -151,6 +161,18 @@ class TimeTableGenerator {
             }
         }
         return $this;
+    }
+
+    /**
+     * Check if the seed falls withing the break time zone
+     * @param $seed
+     * @return bool
+     */
+    public function isBreakTimeZone($seed)
+    {
+        if ($seed < $this->sizeOfDay)
+            return $seed == $this->indexOfBreak;
+        return ($seed - $this->sizeOfDay) % $this->indexOfBreak === 0;
     }
 
     /**

@@ -48,6 +48,7 @@
                         @else
                             <li><a href="{{ route('courses') }}">Course</a></li>
                             <li><a href="{{ route('departments') }}">Departments</a></li>
+                            <li><a href="{{ route('settings') }}">Settings</a></li>
                             {{--<li><a href="{{ route('timetable.index') }}">Time table</a></li>--}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
