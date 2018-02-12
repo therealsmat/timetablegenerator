@@ -5,37 +5,25 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="overflow: hidden;">Courses
-                        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
-                            <i class="glyphicon glyphicon-plus"></i> New
-                        </button>&nbsp;
-
+                    <div class="panel-heading" style="overflow: hidden;">Levels
                         @if(count($courses))
-                            <a href="/generate?dept={{ request('dept') }}&level={{ request('level') }}&semester={{ request('sem') }}&session={{ request('sess') }}"
+                            <a href="/generate?dept=0&level={{ request('level') }}&semester={{ request('sem') }}&session={{ request('sess') }}"
                                class="btn btn-success pull-right" style="margin-right:5px;">
-                                <i class="glyphicon glyphicon-tasks"></i> Generate Time Table
+                                <i class="glyphicon glyphicon-tasks"></i> Generate Time Schedule
                             </a>
-                            <a href="/time-table?dept={{ request('dept') }}&level={{ request('level') }}&semester={{ request('sem') }}&session={{ request('sess') }}"
+                            <a href="/time-table?level={{ request('level') }}&semester={{ request('sem') }}&session={{ request('sess') }}"
                                class="btn btn-info pull-right" style="margin-right:5px;">
-                                <i class="glyphicon glyphicon-eye-open"></i> View TimeTable
+                                <i class="glyphicon glyphicon-eye-open"></i> View Schedule
                             </a>
                         @endif
+                        <button class="btn btn-default pull-right" data-toggle="modal" data-target="#myModal2" style="margin-right: 5px;">
+                            <i class="glyphicon glyphicon-plus"></i> New
+                        </button>&nbsp;
                     </div>
 
                     <div class="panel-body">
                         <form action="">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="department">Department</label>
-                                        <select name="dept" id="department" class="form-control">
-                                            @foreach($departments as $department)
-                                                <option value="{{ $department->id }}" {{ request('dept') == $department->id? 'SELECTED' : '' }}>{{ $department->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="level">Level</label>
@@ -61,6 +49,7 @@
                                     <div class="form-group">
                                         <label for="semester">Session</label>
                                         <input type="text" name="sess" class="form-control" value="2017/2018">
+                                        <input type="hidden" name="dept" class="form-control" value="0">
                                     </div>
                                 </div>
 
@@ -107,7 +96,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <form action="{{ route('course.store') }}">
                     <div class="modal-content">
@@ -140,18 +129,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="title">Department</label>
-                                        <select name="dept" id="department" class="form-control">
-                                            @foreach($departments as $department)
-                                                <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="title">Level</label>
                                         <select name="level" id="level" class="form-control">
@@ -179,6 +157,7 @@
                                     <div class="form-group">
                                         <label for="title">Session</label>
                                         <input type="text" class="form-control" value="2017/2018" name="session">
+                                        <input type="hidden" name="general" value="1">
                                     </div>
                                 </div>
                             </div>

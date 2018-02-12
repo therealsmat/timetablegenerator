@@ -25,11 +25,12 @@ class SettingsController extends Controller
             $record = $setting->where('key', $key);
             if ($record->exists()) {
                 $record->update(['value' => $val]);
+            } else {
+                $record->create([
+                    'key'   => $key,
+                    'value' => $val
+                ]);
             }
-            $record->create([
-                'key'   => $key,
-                'value' => $val
-            ]);
         }
         return redirect()->back()->with('success', 'Setting Saved Successfully');
     }

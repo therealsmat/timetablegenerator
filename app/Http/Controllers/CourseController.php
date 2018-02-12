@@ -21,6 +21,15 @@ class CourseController extends Controller
             'semester' => $sem,
             'session' => $sess
         ])->get();
+
+        $generalCourses = $course->where([
+            'level' => $level,
+            'semester' => $sem,
+            'session' => $sess
+        ])->get();
+
+        $courses = collect($courses)->merge($generalCourses)->unique()->values()->all();
+
         $departments = $department->all();
         return view('courses', compact('departments', 'courses'));
     }
@@ -28,7 +37,9 @@ class CourseController extends Controller
     public function store(Request $request, Course $course)
     {
         try{
-            $course->create($request->all());
+            $data = $request->all();
+            $data['dept'] = $data['dept'] ?? 0;
+            $course->create($data);
             return redirect()->back()->with('success', 'Course created successfully');
         } catch (\Exception $e)
         {

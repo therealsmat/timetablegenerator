@@ -19,7 +19,7 @@ class CreateTimeTablesTable extends Migration
             $table->integer('semester')->unsigned();
             $table->integer('level')->unsigned();
             $table->string('session');
-            $table->string('schedule');
+            $table->text('schedule');
             $table->timestamps();
         });
     }

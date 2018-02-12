@@ -54,6 +54,8 @@ class TimeTableGenerator {
      */
     protected $gene;
 
+    protected $levelWideCourses = null;
+
     /**
      * Individual courses represented as a whole
      * in multiples of their units...
@@ -86,6 +88,17 @@ class TimeTableGenerator {
     public function initializeTimeTable()
     {
         return $this->timeTable = array(array(), array());
+    }
+
+    /**
+     * Add level wide courses if they exists
+     * @param $courses
+     * @return $this
+     */
+    public function levelWideCourse($courses)
+    {
+        $this->levelWideCourses = $courses;
+        return $this;
     }
 
     /**
@@ -132,10 +145,22 @@ class TimeTableGenerator {
             for ($z = 0; $z < $this->sizeOfDay; $z++) {
                 $indicator = $this->emptyIndicator;
                 if ($z == $this->indexOfBreak) $indicator = $this->break[$y];
+                if ($this->hasLevelWideCourses()) {
+                    if ($this->levelWideCourses[$y][$z] != '-')  $indicator = $this->levelWideCourses[$y][$z];
+                }
                 $this->timeTable[$y][$z] = $indicator;
             }
         }
         return $this;
+    }
+
+    /**
+     * Checks if the level wide courses is not null
+     * @return bool
+     */
+    public function hasLevelWideCourses()
+    {
+        return !is_null($this->levelWideCourses);
     }
 
     /**
@@ -156,7 +181,12 @@ class TimeTableGenerator {
                     if ($this->isBreakTimeZone($seed)) continue;
                     $row = (int) ($seed / $this->sizeOfDay);
                     $col = $seed % $this->sizeOfDay;
-                    $this->timeTable[$row][$col] = $this->chromosomes[$x];
+
+                    if ($this->hasLevelWideCourses() && $this->levelWideCourses[$row][$col] != '-') {
+                        $this->timeTable[$row][$col] = $this->levelWideCourses[$row][$col];
+                    } else {
+                        $this->timeTable[$row][$col] = $this->chromosomes[$x];
+                    }
                 }
             }
         }

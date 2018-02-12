@@ -12,18 +12,27 @@ class TimeTableController extends Controller
     public function generate(Course $course, TimeTable $table)
     {
         $condition = request()->all();
+        if (!isset($condition['dept'])) $condition['dept'] = 0;
 
         $courses = $course->where($condition)->get()->toArray();
 
+        $levelWideCourses = null;
+        $newCondition = $condition;
+        $newCondition['dept'] = 0;
+        if ($table->alreadyHas($newCondition)) {
+           $levelWideCourses = $table->where($newCondition)->first()->schedule;
+        }
+
         try{
             $timeTable =  new TimeTableGenerator($courses);
+            $timeTable->levelWideCourse(json_decode($levelWideCourses, true));
             $timeTable = $timeTable->generate();
 
             if ($table->alreadyHas($condition)) {
                 $table->where($condition)->update(['schedule' => json_encode($timeTable) ]);
             } else {
                 $table->create([
-                    'dept'          => $condition['dept'],
+                    'dept'          => $condition['dept'] ?? 0,
                     'level'         => $condition['level'],
                     'semester'      => $condition['semester'],
                     'session'       => $condition['session'],
@@ -33,7 +42,7 @@ class TimeTableController extends Controller
             return redirect()->route('timetable.index', $condition);
         } catch (\Exception $e)
         {
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('error', $e->getTraceAsString());
         }
     }
 
