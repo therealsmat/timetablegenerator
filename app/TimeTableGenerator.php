@@ -29,6 +29,12 @@ class TimeTableGenerator {
     protected $numOfHoursForBreak = 1;
 
     /**
+     * Checks if double period should be allowed
+     * @var bool
+     */
+    protected $allowDoublePeriods = true;
+
+    /**
      * String to be used to denote free / empty periods
      * @var string
      */
@@ -54,6 +60,10 @@ class TimeTableGenerator {
      */
     protected $gene;
 
+    /**
+     * Saves level wide courses
+     * @var null
+     */
     protected $levelWideCourses = null;
 
     /**

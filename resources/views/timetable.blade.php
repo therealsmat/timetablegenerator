@@ -7,11 +7,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" style="overflow: hidden;">
                         <h4 class="text-center" style="text-transform: uppercase">
-                            <strong>{{ $condition['semester'] }} Semester TimeTable</strong>
+                            <strong>{{ $condition['semester'] }} Semester TimeTable</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-success" onclick="printElem()">Print</button>
                         </h4>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="panel-body" id="printArea">
 
                         @if(count($schedule))
                             <table class="table table-responsive table-striped table-bordered">
@@ -47,4 +48,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function printElem() {
+            var content = document.getElementById('printArea').innerHTML;
+            var mywindow = window.open('', 'Print', 'height=900,width=800');
+
+            mywindow.document.write('<html><head><title>Print</title>');
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(content);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close();
+            mywindow.focus();
+            mywindow.print();
+            mywindow.close();
+            return true;
+        }
+    </script>
 @endsection
