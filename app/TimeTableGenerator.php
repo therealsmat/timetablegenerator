@@ -32,7 +32,7 @@ class TimeTableGenerator {
      * Checks if double period should be allowed
      * @var bool
      */
-    protected $allowDoublePeriods = true;
+    private $allowDoublePeriods = true;
 
     /**
      * String to be used to denote free / empty periods
@@ -89,6 +89,15 @@ class TimeTableGenerator {
         $this->indexOfBreak = (new Setting())->getByKey('break_time');
         $this->initializeTimeTable();
         return $this;
+    }
+
+    /**
+     * Allow or disallow double periods.
+     * @param bool $allow
+     */
+    public function allowDoublePeriods($allow = true)
+    {
+        $this->allowDoublePeriods = $allow;
     }
 
     /**
