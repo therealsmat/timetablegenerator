@@ -18,6 +18,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('level', 'LevelsController@index')->name('level');
 
+    Route::get('venues', 'VenuesController@index')->name('venues');
+    Route::post('venues/store', 'VenuesController@store')->name('venue.store');
+
     Route::get('settings', 'SettingsController@index')->name('settings');
     Route::post('settings/store', 'SettingsController@store')->name('settings.store');
 

@@ -205,10 +205,6 @@ class TimeTableGenerator {
                         $this->timeTable[$row][$col] = $this->levelWideCourses[$row][$col];
                     } else {
                         $this->timeTable[$row][$col] = $this->chromosomes[$x];
-                        if ($this->allowDoublePeriods && collect($this->timeTable)->has($this->timeTable[$x][$y])) {
-                            $this->timeTable[$row][$col + 1] = $this->chromosomes[$x++];
-                            unset($this->chromosomes[$x][$y++]);
-                        }
                     }
                 }
             }

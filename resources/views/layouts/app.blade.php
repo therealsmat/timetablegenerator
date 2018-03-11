@@ -49,6 +49,7 @@
                             <li><a href="{{ route('courses') }}">Course</a></li>
                             <li><a href="{{ route('departments') }}">Departments</a></li>
                             <li><a href="{{ route('level') }}">Level</a></li>
+                            <li><a href="{{ route('venues') }}">Venues</a></li>
                             <li><a href="{{ route('settings') }}">Settings</a></li>
                             {{--<li><a href="{{ route('timetable.index') }}">Time table</a></li>--}}
                             <li class="dropdown">
