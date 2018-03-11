@@ -17,7 +17,7 @@ class CreateVenuesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->boolean('is_in_use')->default(FALSE);
-            $table->integer('course_id')->unsigned()->nullable();
+            $table->string('course_id')->nullable();
             $table->string('day')->nullable();
             $table->string('time')->nullable();
             $table->timestamps();

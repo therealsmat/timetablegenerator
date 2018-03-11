@@ -33,7 +33,10 @@
                                     <tr>
                                         <td>{{ $daysLabel[$loop->index] }}</td>
                                         @foreach($day as $item)
-                                            <td>{{ $item }}</td>
+                                            <td>
+                                                <strong>{{ $item }}</strong><br>
+                                                <small>{{ optional($venues)[$item] }}</small>
+                                            </td>
                                         @endforeach
                                     </tr>
                                 @endforeach

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\TimeTable;
 use App\TimeTableGenerator;
+use App\Venue;
 use Illuminate\Http\Request;
 
 class TimeTableController extends Controller
@@ -42,11 +43,11 @@ class TimeTableController extends Controller
             return redirect()->route('timetable.index', $condition);
         } catch (\Exception $e)
         {
-            return redirect()->back()->with('error', $e->getTraceAsString());
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
-    public function index(Request $request, TimeTable $table)
+    public function index(Request $request, TimeTable $table, Venue $venue)
     {
         $condition = $request->all();
 
@@ -54,11 +55,18 @@ class TimeTableController extends Controller
 
         $schedule = json_decode($timeTable->schedule);
 
+        $venues = $venue->inUse()->get();
+
+        $venues = collect($venues)->reduce(function ($parsed, $venues) {
+            $parsed[$venues['course_id']] = $venues['name'];
+            return $parsed;
+        });
+
         $daysLabel = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
         $condition['semester'] = $condition['semester'] == 1 ? '1st' : '2nd';
 
-        return view('timetable', compact('schedule', 'condition', 'daysLabel'));
+        return view('timetable', compact('schedule', 'condition', 'daysLabel', 'venues'));
 
     }
 }
