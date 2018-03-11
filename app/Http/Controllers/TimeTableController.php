@@ -58,7 +58,7 @@ class TimeTableController extends Controller
         $venues = $venue->inUse()->get();
 
         $venues = collect($venues)->reduce(function ($parsed, $venues) {
-            $parsed[$venues['course_id']] = $venues['name'];
+            $parsed[$venues['course_id']] = "<span class='badge'>{$venues['name']}</span>";
             return $parsed;
         });
 

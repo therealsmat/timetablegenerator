@@ -35,7 +35,7 @@
                                         @foreach($day as $item)
                                             <td>
                                                 <strong>{{ $item }}</strong><br>
-                                                <small>{{ optional($venues)[$item] }}</small>
+                                                <small>{!! optional($venues)[$item] !!}</small>
                                             </td>
                                         @endforeach
                                     </tr>
