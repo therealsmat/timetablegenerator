@@ -28,7 +28,7 @@ class TimeTableController extends Controller
         try{
             $timeTable =  new TimeTableGenerator($courses);
             $timeTable->levelWideCourse(json_decode($levelWideCourses, true));
-            $timeTable = $timeTable->generate();
+            $timeTable = $timeTable->generate($condition['dept']);
 
             if ($table->alreadyHas($condition)) {
                 $table->where($condition)->update(['schedule' => json_encode($timeTable) ]);

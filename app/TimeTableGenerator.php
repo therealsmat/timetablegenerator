@@ -41,6 +41,13 @@ class TimeTableGenerator {
     protected $emptyIndicator = '-';
 
     /**
+     * Indicates if timetable is for department or level
+     *
+     * @var
+     */
+    protected $is_general;
+
+    /**
      * The timetable object to store the final result
      * @var array[][]
      */
@@ -185,7 +192,7 @@ class TimeTableGenerator {
                 $indicator = $this->emptyIndicator;
                 if ($z == $this->indexOfBreak) $indicator = $this->break[$y];
                 if ($this->hasLevelWideCourses()) {
-                    if ($this->levelWideCourses[$y][$z] != '-')  $indicator = $this->levelWideCourses[$y][$z];
+                    if ($this->levelWideCourses[$y][$z] != '-') $indicator = $this->levelWideCourses[$y][$z];
                 }
                 $this->timeTable[$y][$z] = $indicator;
             }
@@ -199,7 +206,7 @@ class TimeTableGenerator {
      */
     public function hasLevelWideCourses()
     {
-        return !is_null($this->levelWideCourses);
+        return $this->is_general == "0" ? false : true;
     }
 
     /**
@@ -226,6 +233,13 @@ class TimeTableGenerator {
                     } else {
                         $this->timeTable[$row][$col] = $this->chromosomes[$x];
                     }
+                    if (isset($this->chromosomes[$x + 1])){
+                        if ($this->chromosomes[$x + 1] === $this->chromosomes[$x] && !$this->hasUsedDoublePeriods($this->chromosomes[$x])) {
+                            $this->timeTable[$row][$col + 1] = $this->chromosomes[$x];
+                            $this->hasDoublePeriod[] = $this->chromosomes[$x];
+                        }
+                    }
+
                     $this->usedSlots[] = $seed;
 
                     $this->selectVenue($this->chromosomes[$x], $row, $col);
@@ -258,10 +272,12 @@ class TimeTableGenerator {
 
     /**
      * Call necessary methods and return the timetable array
+     * @param $dept
      * @return \array[][]
      */
-    public function generate()
+    public function generate($dept)
     {
+        $this->is_general = $dept;
         if (!$this->slotsAreEnough()) {
             abort(500, 'The number of units exceed the available spaces.');
         }
