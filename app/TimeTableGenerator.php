@@ -32,7 +32,7 @@ class TimeTableGenerator {
      * Checks if double period should be allowed
      * @var bool
      */
-    protected $allowDoublePeriods = true;
+    private $allowDoublePeriods = true;
 
     /**
      * String to be used to denote free / empty periods
@@ -80,6 +80,22 @@ class TimeTableGenerator {
     protected $break = ['B', 'R', 'E', 'A', 'K'];
 
     /**
+     * Holds a list of all available venues
+     *
+     * @var array|\Illuminate\Database\Eloquent\Collection|static[]
+     */
+    protected $venues = [];
+
+    /**
+     * Holds the instance of the venue model
+     *
+     * @var
+     */
+    protected $venue;
+
+    protected $hasDoublePeriod = [];
+
+    /**
      * TimeTableGenerator constructor.
      * @param array $gene
      */
@@ -88,7 +104,20 @@ class TimeTableGenerator {
         $this->gene = $gene;
         $this->indexOfBreak = (new Setting())->getByKey('break_time');
         $this->initializeTimeTable();
+        $this->venue = new Venue();
+
+        $this->venues = $this->venue->all();
+
         return $this;
+    }
+
+    /**
+     * Allow or disallow double periods.
+     * @param bool $allow
+     */
+    public function allowDoublePeriods($allow = true)
+    {
+        $this->allowDoublePeriods = $allow;
     }
 
     /**
@@ -197,6 +226,8 @@ class TimeTableGenerator {
                     } else {
                         $this->timeTable[$row][$col] = $this->chromosomes[$x];
                     }
+                    $this->usedSlots[] = $seed;
+                    $this->selectVenue($this->chromosomes[$x], $row, $col);
                 }
             }
         }
@@ -237,5 +268,37 @@ class TimeTableGenerator {
         $this->createInitialGeneration();
         $this->startSelection();
         return $this->timeTable;
+    }
+
+    /**
+     * Intelligently select a venue for a schedule
+     *
+     * @param $course_id
+     * @param $day
+     * @param $period
+     */
+    public function selectVenue($course_id, $day, $period)
+    {
+        $venueCount = count($this->venues);
+        $found = false;
+        $iteration = 0;
+
+        while ($found === false) {
+            $iteration++;
+            if ($iteration > $venueCount) break;
+
+            $seed = rand(0, $venueCount - 1);
+            $selected = $this->venues[$seed];
+
+            if (! $selected->hasBeenAssignedOn($day, $period)) {
+                $selected->markAsAssignedOn($course_id, $day, $period);
+                $found = true;
+            }
+        }
+    }
+
+    public function hasUsedDoublePeriods($course)
+    {
+        return in_array($course, $this->hasDoublePeriod);
     }
 }

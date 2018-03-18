@@ -7,6 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" style="overflow: hidden;">
                         <h4 class="text-center" style="text-transform: uppercase">
+                            {{ strtoupper($institution) }}<br><br>
                             <strong>{{ $condition['semester'] }} Semester TimeTable</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-success" onclick="printElem()">Print</button>
                         </h4>
@@ -33,7 +34,10 @@
                                     <tr>
                                         <td>{{ $daysLabel[$loop->index] }}</td>
                                         @foreach($day as $item)
-                                            <td>{{ $item }}</td>
+                                            <td>
+                                                <strong>{{ $item }}</strong><br>
+                                                <small>{!! optional($venues)[$item] !!}</small>
+                                            </td>
                                         @endforeach
                                     </tr>
                                 @endforeach
@@ -56,6 +60,7 @@
 
             mywindow.document.write('<html><head><title>Print</title>');
             mywindow.document.write('</head><body >');
+            mywindow.document.write("<span style=\"text-align:center;\">{{ $institution }}</span>");
             mywindow.document.write(content);
             mywindow.document.write('</body></html>');
 
