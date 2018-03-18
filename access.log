@@ -768,6 +768,7 @@
 127.0.0.1 - - [12/Mar/2018:00:54:52 +0100] "GET /favicon.ico HTTP/1.1" 200 295 "http://cbt.local/time-table?dept=2&level=100&semester=1&session=2017/2018" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"
 127.0.0.1 - - [12/Mar/2018:00:55:12 +0100] "GET /time-table?dept=2&level=100&semester=1&session=2017/2018 HTTP/1.1" 200 2883 "http://cbt.local/courses?dept=2&level=100&sem=1&sess=2017%2F2018" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"
 127.0.0.1 - - [12/Mar/2018:00:55:12 +0100] "GET /favicon.ico HTTP/1.1" 200 295 "http://cbt.local/time-table?dept=2&level=100&semester=1&session=2017/2018" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"
+<<<<<<< HEAD
 127.0.0.1 - - [12/Mar/2018:13:48:11 +0100] "GET /time-table?dept=2&level=100&semester=1&session=2017/2018 HTTP/1.1" 302 1365 "http://cbt.local/courses?dept=2&level=100&sem=1&sess=2017%2F2018" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"
 127.0.0.1 - - [12/Mar/2018:13:48:16 +0100] "GET /login HTTP/1.1" 200 2183 "http://cbt.local/courses?dept=2&level=100&sem=1&sess=2017%2F2018" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"
 127.0.0.1 - - [14/Mar/2018:03:36:06 +0100] "GET / HTTP/1.1" 200 1850 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"
@@ -1261,3 +1262,5 @@
 127.0.0.1 - - [18/Mar/2018:21:45:10 +0100] "GET /fonts/vendor/bootstrap-sass/bootstrap/glyphicons-halflings-regular.ttf?e18bbf611f2a2e43afc071aa2f4e1512 HTTP/1.1" 404 1692 "http://cbt.local/css/app.css" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"
 127.0.0.1 - - [18/Mar/2018:21:45:11 +0100] "GET /generate?dept=0&level=100&semester=1&session=2017/2018 HTTP/1.1" 302 1676 "http://cbt.local/level?level=100&sem=1&sess=2017%2F2018&dept=0" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"
 127.0.0.1 - - [18/Mar/2018:21:45:11 +0100] "GET /time-table?dept=0&level=100&semester=1&session=2017%2F2018 HTTP/1.1" 200 2956 "http://cbt.local/level?level=100&sem=1&sess=2017%2F2018&dept=0" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36"
+=======
+>>>>>>> 7404b43893d382bf2f316486f3fc00558c3b8ede

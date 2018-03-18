@@ -67,9 +67,9 @@ class TimeTableController extends Controller
 
         $condition['semester'] = $condition['semester'] == 1 ? '1st' : '2nd';
 
+
         $institution = (new Setting())->getByKey('institution_name');
 
         return view('timetable', compact('schedule', 'condition', 'daysLabel', 'venues', 'institution'));
-
     }
 }

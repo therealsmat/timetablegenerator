@@ -227,6 +227,7 @@ class TimeTableGenerator {
                         $this->timeTable[$row][$col] = $this->chromosomes[$x];
                     }
                     $this->usedSlots[] = $seed;
+
                     $this->selectVenue($this->chromosomes[$x], $row, $col);
                 }
             }
