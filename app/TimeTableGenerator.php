@@ -181,6 +181,8 @@ class TimeTableGenerator {
         return $this;
     }
 
+
+
     /**
      * Create an initial generation with zero elements
      * @return $this
