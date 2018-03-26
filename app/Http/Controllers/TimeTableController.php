@@ -26,7 +26,7 @@ class TimeTableController extends Controller
         }
 
         try{
-            $timeTable =  new TimeTableGenerator($courses);
+            $timeTable =  new TimeTableGenerator($courses, $newCondition['level']);
             $timeTable->levelWideCourse(json_decode($levelWideCourses, true));
             $timeTable = $timeTable->generate($condition['dept']);
 
@@ -67,9 +67,9 @@ class TimeTableController extends Controller
 
         $condition['semester'] = $condition['semester'] == 1 ? '1st' : '2nd';
 
+
         $institution = (new Setting())->getByKey('institution_name');
 
         return view('timetable', compact('schedule', 'condition', 'daysLabel', 'venues', 'institution'));
-
     }
 }
