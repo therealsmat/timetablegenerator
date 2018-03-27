@@ -25,7 +25,8 @@ class CourseController extends Controller
         $generalCourses = $course->where([
             'level' => $level,
             'semester' => $sem,
-            'session' => $sess
+            'session' => $sess,
+            'dept' => 0
         ])->get();
 
         $courses = collect($courses)->merge($generalCourses)->unique()->values()->all();

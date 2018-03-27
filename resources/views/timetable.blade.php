@@ -28,6 +28,8 @@
                                     <th>2 - 3</th>
                                     <th>3 - 4</th>
                                     <th>4 - 5</th>
+                                    <th>5 - 6</th>
+                                    <th>6 - 7</th>
                                 </tr>
 
                                 @foreach($schedule as $day)

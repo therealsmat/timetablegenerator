@@ -8,7 +8,7 @@ class TimeTableGenerator {
      * Number of hours that make up an academic day
      * @var int
      */
-    protected $sizeOfDay = 9;
+    protected $sizeOfDay = 11;
 
     /**
      * Number of days in an academic week
@@ -127,9 +127,9 @@ class TimeTableGenerator {
     public function setLevelChapelPeriods()
     {
         if (substr($this->level, 0) <= 2) {
-            $this->chapelTime = [28,29,30];
+            $this->chapelTime = [34,35,36];
         } else {
-            $this->chapelTime = [16,17,18];
+            $this->chapelTime = [12,13,14];
         }
     }
 
